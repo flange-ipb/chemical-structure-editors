@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ketcher 2</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  </head>
+  <body>
+    <script type="text/javascript">
+      function getKetcher() {
+        return document.getElementById("iframe").contentWindow.ketcher;
+      }
+
+      function getTextarea() {
+        return document.getElementById("textarea");
+      }
+
+      function setMoleculeFromTextarea() {
+        let molfile = getTextarea().value;
+        getKetcher().setMolecule(molfile);
+      }
+
+      async function getMolfileFromEditor() {
+        let molfile = await getKetcher().getMolfile("v3000");
+        getTextarea().value = molfile;
+      }
+    </script>
+
+    <div class="container-fluid">
+      <div class="row mt-3">
+        <div class="col-lg-7 text-end">
+          <iframe id="iframe" src="ketcher.html" width="1000" height="614"></iframe>
+        </div>
+        <div class="col-lg-1 text-center align-self-center">
+          <button class="btn btn-outline-secondary mb-3" onclick="setMoleculeFromTextarea()">&laquo;</button>
+          <br>
+          <button class="btn btn-outline-secondary" onclick="getMolfileFromEditor()">&raquo;</button>
+        </div>
+        <div class="col-lg-4 text-center">
+          <textarea id="textarea" class="form-control" style="height:614px;resize:none;" placeholder="Molfile V3000"></textarea>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
